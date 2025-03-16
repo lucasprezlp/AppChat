@@ -19,7 +19,8 @@ dependencyResolutionManagement {
         }
     }
 }
-
+////
 rootProject.name = "AppChat"
 include(":app")
+
 
