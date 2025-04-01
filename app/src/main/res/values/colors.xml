@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="primary">#8692f7</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
     <color name="red">#F6292F</color>
     <color name="red_osc">#C9272C</color>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="lavender">#8692f7</color>
     <color name="colorGray">#D5D2D2</color>
     <color name="colorGrayLight">#F1EFEF</color>
     <color name="colorDarkGray">#4E4D4D</color>
+    <color name="orange_dark">#005EFF</color>
+    <color name="primary">#0241FF</color>
+    <color name="overlay_color">#80E2E2E2</color>
+    <color name="light_brown">#D2B48C</color>
+    <color name="colorPrimary">#7e6f58</color>
+    <color name="colorPrimaryDark">#0037FD</color>
+    <color name="colorAccent">#0026FD</color>
 </resources>
+

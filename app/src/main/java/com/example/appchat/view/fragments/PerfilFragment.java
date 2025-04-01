@@ -1,4 +1,5 @@
 package com.example.appchat.view.fragments;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,14 +12,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.appchat.R;
 import com.example.appchat.adapters.PostAdapter;
 import com.example.appchat.databinding.FragmentPerfilBinding;
 import com.example.appchat.util.ImageUtils;
 import com.example.appchat.view.HomeActivity;
 import com.example.appchat.viewmodel.PostViewModel;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 import com.parse.ParseUser;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -28,10 +33,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.widget.Toast;
+
 import java.io.IOException;
 
 public class PerfilFragment extends Fragment {
@@ -53,6 +60,7 @@ public class PerfilFragment extends Fragment {
         setupGalleryLauncher();
         setupProfileImageClick();
         setupViewModel();
+        fetchPostCount();
         return binding.getRoot();
     }
 
@@ -61,7 +69,7 @@ public class PerfilFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        postViewModel.getPostsByCurrentUser().observe(getViewLifecycleOwner(), posts -> {
+        postViewModel.getPostsByCurrentUser(0).observe(getViewLifecycleOwner(), posts -> {
             if (posts != null && !posts.isEmpty()) {
                 Log.d("PerfilFragment", "Número de posts: " + posts.size());
                 PostAdapter adapter = new PostAdapter(posts);
@@ -102,7 +110,7 @@ public class PerfilFragment extends Fragment {
         if (currentUser != null) {
             binding.nameUser.setText(currentUser.getUsername());
             binding.emailUser.setText(currentUser.getEmail());
-            binding.insta.setText(currentUser.getString("instagram"));
+            binding.cantPost.setText(String.valueOf(currentUser.getInt("posts")));
 
             String fotoUrl = currentUser.getString("foto_perfil");
             if (fotoUrl != null) {
@@ -116,6 +124,23 @@ public class PerfilFragment extends Fragment {
             }
         } else {
             Toast.makeText(getContext(), "Usuario no logueado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void fetchPostCount() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
+            query.whereEqualTo("user", currentUser);
+            query.countInBackground((count, e) -> {
+                if (e == null) {
+                    binding.cantPost.setText(String.valueOf(count));
+                } else {
+                    binding.cantPost.setText("0");
+                }
+            });
+        } else {
+            binding.cantPost.setText("0");
         }
     }
 
@@ -176,6 +201,7 @@ public class PerfilFragment extends Fragment {
             Toast.makeText(requireContext(), "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

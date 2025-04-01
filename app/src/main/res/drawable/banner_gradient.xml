@@ -1,4 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-</selector>
+<!-- res/drawable/banner_gradient.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="@color/orange_dark"
+        android:endColor="@color/primary"
+        android:angle="0"
+    android:type="linear" />
+    <corners
+        android:radius="0dp" />
+</shape>

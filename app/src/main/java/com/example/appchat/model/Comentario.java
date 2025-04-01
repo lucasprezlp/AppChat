@@ -8,6 +8,7 @@ import java.util.Date;
 public class Comentario extends ParseObject {
 
     public Comentario() {}
+
     public String getId() {
         return getObjectId();
     }

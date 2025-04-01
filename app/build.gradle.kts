@@ -49,6 +49,8 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation ("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
     implementation("androidx.recyclerview:recyclerview:1.3.0")
+    implementation ("io.github.florent37:shapeofview:1.4.7")
+    implementation ("com.google.android.material:material:1.9.0")
 
     implementation ("androidx.lifecycle:lifecycle-viewmodel:2.8.7")  // Verifica la última versión
     implementation ("androidx.lifecycle:lifecycle-livedata:2.8.7")

@@ -43,8 +43,8 @@ public class PostViewModel extends ViewModel {
         return posts;
     }
 
-    public LiveData<List<Post>> getPostsByCurrentUser() {
-        posts = postProvider.getPostsByCurrentUser();
+    public LiveData<List<Post>> getPostsByCurrentUser(int page) {
+        posts = postProvider.getPostsByCurrentUser(page);
         return posts;
     }
 

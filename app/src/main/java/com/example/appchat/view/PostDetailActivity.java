@@ -1,6 +1,6 @@
 package com.example.appchat.view;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 import java.util.ArrayList;
 
@@ -68,6 +68,12 @@ public class PostDetailActivity extends AppCompatActivity {
         setupObservers();
 
         binding.fabComentar.setOnClickListener(v -> comentar());
+
+        binding.circleImageBack.setOnClickListener(v -> {
+            Intent intent = new Intent(PostDetailActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish(); // Cierra esta actividad
+        });
     }
 
 
@@ -142,7 +148,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private void detailInfo() {
         binding.nameUser.setText(getIntent().getStringExtra("username"));
         binding.emailUser.setText(getIntent().getStringExtra("email"));
-        binding.insta.setText(getIntent().getStringExtra("redsocial"));
+
 
         String fotoUrl = getIntent().getStringExtra("foto_perfil");
         if (fotoUrl != null) {
@@ -177,6 +183,10 @@ public class PostDetailActivity extends AppCompatActivity {
             }).attach();
         }
     }
+
+
+
+
 }
 
 

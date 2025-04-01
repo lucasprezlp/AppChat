@@ -10,6 +10,8 @@ import com.example.appchat.databinding.ActivityRegisterBinding;
 import com.example.appchat.model.User;
 import com.example.appchat.util.Validaciones;
 import com.example.appchat.viewmodel.RegisterViewModel;
+import com.parse.ParseUser;
+
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private RegisterViewModel viewModel;
@@ -20,13 +22,23 @@ public class RegisterActivity extends AppCompatActivity {
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
-        viewModel.getRegisterResult().observe(this, result -> showToast(result));
+
+        // Observar el resultado del registro
+        viewModel.getRegisterResult().observe(this, result -> {
+            if (result != null) {
+                showToast("Registro exitoso 🎉");
+                irAMainActivity(); // Llamar la función para cambiar de pantalla
+            } else {
+                showToast("Error en el registro, intenta nuevamente.");
+            }
+        });
+
         manejarEventos();
     }
 
     private void manejarEventos() {
         // Evento volver a login
-        binding.circleImageBack.setOnClickListener(v -> {
+        binding.circleImageBackRegister.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         });
@@ -39,11 +51,19 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void irAMainActivity() {
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpia el stack
+        startActivity(intent);
+        finish(); // Cierra RegisterActivity
+    }
+
     private void realizarRegistro() {
         String usuario = binding.itUsuario.getText().toString().trim();
         String email = binding.itEmail.getText().toString().trim();
         String pass = binding.itPassword.getText().toString().trim();
         String pass1 = binding.itPassword1.getText().toString().trim();
+
         // Validaciones de entrada
         if (!Validaciones.validarTexto(usuario)) {
             showToast("Usuario incorrecto");
@@ -59,12 +79,23 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        User user = new User();
-        user.setEmail(email);
-        user.setUsername(usuario);
-        user.setPassword(pass);
-        Log.d("RegisterActivity", "Usuario registrado: " + usuario + ", Email: " + email+" pass: "+pass);
-        viewModel.register(user);
+        // Cerrar sesión antes de registrar un nuevo usuario
+        ParseUser.logOutInBackground(e -> {
+            if (e == null) {
+                // Sesión cerrada correctamente, procede con el registro
+                User user = new User();
+                user.setEmail(email);
+                user.setUsername(usuario);
+                user.setPassword(pass);
+
+                Log.d("RegisterActivity", "Usuario registrado: " + usuario + ", Email: " + email + ", Pass: " + pass);
+                viewModel.register(user);
+            } else {
+                // Error al cerrar sesión
+                Log.e("RegisterActivity", "Error al cerrar sesión: ", e);
+                showToast("Error al cerrar sesión. Intenta nuevamente.");
+            }
+        });
     }
 
     private void showToast(String message) {

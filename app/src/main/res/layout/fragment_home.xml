@@ -11,13 +11,12 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:background="@drawable/banner_gradient">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tools"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/headerbkg"
             app:title="Publicaciones"
             app:titleTextColor="@android:color/white" />
     </com.google.android.material.appbar.AppBarLayout>

@@ -40,9 +40,9 @@ public class AuthProvider {
         }
 
         ParseUser parseUser = new ParseUser();
-        parseUser.setUsername(user.getUsername() != null ? user.getUsername() : "defaultUsername");
-        parseUser.setPassword(user.getPassword() != null ? user.getPassword() : "defaultPassword");
-        parseUser.setEmail(user.getEmail() != null ? user.getEmail() : "default@example.com");
+        parseUser.setUsername(user.getUsername());
+        parseUser.setPassword(user.getPassword());
+        parseUser.setEmail(user.getEmail());
 
         parseUser.signUpInBackground(e -> {
             if (e == null) {
@@ -51,7 +51,7 @@ public class AuthProvider {
                 Log.d("AuthProvider", "Usuario registrado exitosamente: " + parseUser.getObjectId());
             } else {
                 // Error en el registro
-                Log.e("AuthProvider", "Error en registro: ", e);
+                Log.e("AuthProvider", "Error en registro: " + e.getMessage(), e);
                 authResult.setValue(null);
             }
         });

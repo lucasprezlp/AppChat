@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@drawable/headerbkg">
+        >
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -45,13 +45,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
+                <ImageView
+                    android:id="@+id/backMain"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_close"
+                    android:tint="@color/primary"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/titulo_ppal"
                     android:textSize="24sp"
                     android:textAlignment="center"
-                    android:textColor="@color/lavender" />
+                    android:textColor="@color/primary" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
@@ -69,7 +79,7 @@
                     android:hint="@string/titulo_post"
                     android:padding="16dp"
                     android:textSize="13sp"
-                    android:textColor="@color/lavender" />
+                    android:textColor="@color/primary" />
                 <EditText
                     android:id="@+id/etDescripcion"
                     android:layout_width="match_parent"
@@ -79,7 +89,7 @@
                     android:hint="@string/descripcion"
                     android:padding="16dp"
                     android:textSize="13sp"
-                    android:textColor="@color/lavender" />
+                    android:textColor="@color/primary" />
                 <Spinner
                     android:id="@+id/spinnerCategoria"
                     android:layout_width="match_parent"
@@ -96,7 +106,7 @@
                     android:hint="@string/duracion"
                     android:gravity="start|center_vertical"
                     android:inputType="number"
-                    android:textColor="@color/lavender"
+                    android:textColor="@color/primary"
                     android:textSize="13sp"/>
                 <EditText
                     android:id="@+id/etPresupuesto"
@@ -108,7 +118,7 @@
                     android:layout_marginTop="10dp"
                     android:padding="16dp"
                     android:gravity="start|center_vertical"
-                    android:textColor="@color/lavender"
+                    android:textColor="@color/primary"
                     android:textSize="13sp"/>
                 <Button
                     android:id="@+id/btnPublicar"
@@ -126,13 +136,7 @@
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/back_bottom"
-            android:scaleType="centerCrop"
-            android:layout_gravity="end"
-            />
+
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
